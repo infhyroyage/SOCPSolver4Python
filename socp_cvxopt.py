@@ -4,14 +4,16 @@ from math import sqrt
 
 
 def solve_socp1():
-	e = np.array([2., -1., -2.])
+	e = np.array([-1.0, 3.0, 2.0])
 	c = co.matrix(e)
 
-	g1 = np.array([[0, 1, 1], [-sqrt(2), 0, 0], [0, -1, 1]])
-	g = [co.matrix(g1)]
+	g1 = np.array([[0.0, -1.0, -sqrt(3)], [-2.0, 0.0, 0.0], [0.0, -sqrt(3), 1.0]])
+	g2 = np.array([[-1.0, 1.0, 0.0], [0.0, 0.0, 0.0]])
+	g = [co.matrix(g1), co.matrix(g2)]
 
-	h1 = np.array([-2, -2 * sqrt(2), -2])
-	h = [co.matrix(h1)]
+	h1 = np.array([-1.0, -4.0, -sqrt(3)])
+	h2 = np.array([0.0, 0.0])
+	h = [co.matrix(h1), co.matrix(h2)]
 
 	sol = co.solvers.socp(c, Gq=g, hq=h)
 	print(sol['x'])
